@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public ParticleSystem snow;
 
     Vector3 velocity;
     bool isGrounded;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        snow.Play();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
