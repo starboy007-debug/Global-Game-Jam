@@ -7,6 +7,7 @@ public class Chase : MonoBehaviour
     //chase
     public Transform player;
     static Animator anim;
+    public static bool isAttacking = false;
 
     void Start()
     {
@@ -28,11 +29,14 @@ public class Chase : MonoBehaviour
                 this.transform.Translate(0, 0, 0.1f);
                 anim.SetBool("isWalking", true);
                 anim.SetBool("isAttacking", false);
+                isAttacking = false;
             }
             else
             {
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isAttacking", true);
+                isAttacking = true;
+                                
             }
         }
         else
@@ -40,6 +44,7 @@ public class Chase : MonoBehaviour
             anim.SetBool("isIdle", true);
             anim.SetBool("isWalking", false);
             anim.SetBool("isAttacking", false);
+            isAttacking = false;
         }
     }
 }

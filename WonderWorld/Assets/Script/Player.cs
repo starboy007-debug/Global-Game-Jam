@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Attacking();
         snow.Play();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -48,19 +50,46 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            TakeDamage(20);
+           // TakeDamage(20);
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
+    void Attacking()
+    {
+        if(Chase.isAttacking == true)
+        {
+            StartCoroutine(Damage());
+       //     TakeDamage(20);
+            Chase.isAttacking = false;
+        }
+    }
 
-    void TakeDamage(int damage)
+    IEnumerator Damage()
+    {
+        yield return new WaitForSeconds(1f);
+        TakeDamage(20);
+        Chase.isAttacking = false;
+        yield return new WaitForSeconds(1f);
+    }
+
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
 
         healthBar.SetHealth(currentHealth);
+    }
+
+
+    void Die()
+    {
+        Debug.Log("You died !");
     }
 
 }
