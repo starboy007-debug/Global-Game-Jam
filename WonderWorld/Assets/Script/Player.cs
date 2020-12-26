@@ -13,7 +13,10 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    public ParticleSystem snow;
+  //  public ParticleSystem snow;
+
+//    public AudioSource walk;
+  //  public AudioSource land;
 
     public int maxHealth = 100;
     public int currentHealth;
@@ -22,7 +25,6 @@ public class Player : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     Animator anim;
-
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -34,7 +36,7 @@ public class Player : MonoBehaviour
     {
         
         Attacking();
-        snow.Play();
+    //    snow.Play();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -44,13 +46,22 @@ public class Player : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+    //    if (x == 1 || x == -1 || z == 1 || z == -1)
+    //    {
+           // walk.Play();
+     //   }
+        
 
+        Vector3 move = transform.right * x + transform.forward * z;
+        //walk.Play();
         controller.Move(move * speed * Time.deltaTime);
+     
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            
+          //  land.Play();
            // TakeDamage(20);
         }
 

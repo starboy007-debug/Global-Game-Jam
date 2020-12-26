@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Egg : MonoBehaviour
 {
-    public static int count = 0;
+    int count = 0;
+    public static int eggs;
+
+    private void Update()
+    {
+        
+    }
     private void OnTriggerEnter()
     {
         count += 1;
-        if (count == 5)
-        {
-            StartCoroutine(Gift());
-        }
+        eggs = count;
+
         Destroy(this.gameObject);
     }
 
 
-    IEnumerator Gift()
-    {
-        yield return new WaitForSeconds(1.5f);
-    }
 
 }

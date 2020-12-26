@@ -9,22 +9,27 @@ public class PlayerScore : MonoBehaviour
     public GameObject gift1;
     public GameObject gift2;
     public GameObject gift3;
+    public GameObject fadein;
 
-    private void Update()
+    private void Start()
     {
         StartCoroutine(Intro());
+    }
+    private void Update()
+    {
+        
 
-        if (Egg.count == 1 | Egg.count == 3 | Egg.count == 4)
+        if (Egg.eggs == 1 || Egg.eggs == 3 || Egg.eggs == 4)
         {
             StartCoroutine(Gift1());
         }
 
-        if (Egg.count == 2)
+        if (Egg.eggs == 2)
         {
             StartCoroutine(Gift2());
         }
 
-        if (Egg.count == 5)
+        if (Egg.eggs == 5)
         {
             StartCoroutine(Gift3());
         }
@@ -33,18 +38,22 @@ public class PlayerScore : MonoBehaviour
     
     IEnumerator Intro()
     {
+        fadein.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        fadein.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         intro.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3.5f);
         intro.SetActive(false);
 
     }
 
     IEnumerator Gift1()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         gift1.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
+        Egg.eggs = 0;
         gift1.SetActive(false);
     }
 
@@ -52,7 +61,7 @@ public class PlayerScore : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         gift2.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         gift2.SetActive(false);
     }
 
@@ -60,7 +69,7 @@ public class PlayerScore : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         gift3.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         gift3.SetActive(false);
     }
 
