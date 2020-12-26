@@ -19,19 +19,20 @@ public class Player : MonoBehaviour
     public int currentHealth;
     public HealthBar healthBar;
 
-
     Vector3 velocity;
     bool isGrounded;
-    // Start is called before the first frame update
+    Animator anim;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        
         Attacking();
         snow.Play();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -63,7 +64,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Damage());
        //     TakeDamage(20);
-            Chase.isAttacking = false;
+            
         }
     }
 
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         TakeDamage(20);
+        anim.enabled = true;
         Chase.isAttacking = false;
         yield return new WaitForSeconds(1f);
     }
@@ -89,6 +91,7 @@ public class Player : MonoBehaviour
 
     void Die()
     {
+        anim.SetBool("isDie", true);
         Debug.Log("You died !");
     }
 
