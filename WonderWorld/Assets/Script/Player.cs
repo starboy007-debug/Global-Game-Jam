@@ -71,10 +71,10 @@ public class Player : MonoBehaviour
 
     void Attacking()
     {
-        if(Chase.isAttacking == true)
+        if(Chase.isAttacking)
         {
             StartCoroutine(Damage());
-       //     TakeDamage(20);
+          //  TakeDamage(20);
             
         }
     }
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
     IEnumerator Damage()
     {
         yield return new WaitForSeconds(1f);
-        TakeDamage(20);
+        TakeDamage(2);
         anim.enabled = true;
         Chase.isAttacking = false;
         yield return new WaitForSeconds(1f);
