@@ -7,9 +7,12 @@ public class cube : MonoBehaviour
     public GameObject key;
 
 
-    private void OnCollisionEnter()
+ //   private void OnCollisionEnter()
+ //   {        
+ //       StartCoroutine(Key());
+ //   }
+    private void OnTriggerEnter()
     {
-        
         StartCoroutine(Key());
     }
     IEnumerator Key()

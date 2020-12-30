@@ -14,7 +14,7 @@ public class RadarObject
 public class Radar : MonoBehaviour
 {
     public Transform playerPos;
-    float mapScale = 2.0f;
+    float mapScale = 1.2f;
 
     public static List<RadarObject> radObjects = new List<RadarObject>();
 

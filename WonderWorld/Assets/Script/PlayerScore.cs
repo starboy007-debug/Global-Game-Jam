@@ -12,9 +12,9 @@ public class PlayerScore : MonoBehaviour
     public GameObject gift3;
     public GameObject portal;
     public GameObject portalcube;
-    
+    public GameObject portalcube1;
 
- //   int count = 0;
+    //   int count = 0;
     public static int eggs = 0;
     private void Start()
     {
@@ -84,6 +84,7 @@ public class PlayerScore : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         gift3.SetActive(false);
         portalcube.SetActive(false);
+        portalcube1.SetActive(false);
     }
 
 }

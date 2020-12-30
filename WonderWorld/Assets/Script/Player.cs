@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
+    public GameObject die;
 
     Vector3 velocity;
     bool isGrounded;
@@ -102,8 +104,15 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        anim.SetBool("isDie", true);
-        Debug.Log("You died !");
+        die.SetActive(true);
+        // anim.SetBool("isDie", true);
+        // Debug.Log("You died !");
+        StartCoroutine(load());
+    }
+    IEnumerator load()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Level01");
     }
 
 }
