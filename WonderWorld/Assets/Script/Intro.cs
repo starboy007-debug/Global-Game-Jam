@@ -56,7 +56,7 @@ public class Intro : MonoBehaviour
         yield return new WaitForSeconds(3.2f);
         redScrren.SetActive(true);
         yield return new WaitForSeconds(2.5f);
-        SceneManager.LoadScene("Level01");
+        SceneManager.LoadScene("Level02");
 
     }
   

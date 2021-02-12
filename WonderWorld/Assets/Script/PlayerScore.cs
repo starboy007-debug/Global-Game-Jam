@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerScore : MonoBehaviour
 {
-    public GameObject intro;
+    public GameObject intro1;
+    public GameObject intro2;
+    public GameObject intro3;
     public GameObject fadein;
     public GameObject gift1;
     public GameObject gift2;
@@ -47,11 +49,16 @@ public class PlayerScore : MonoBehaviour
     IEnumerator Intro()
     {
         fadein.SetActive(true);       
-        yield return new WaitForSeconds(3f);
-        intro.SetActive(true);
-        yield return new WaitForSeconds(3.5f);
-        intro.SetActive(false);
-
+        yield return new WaitForSeconds(2f);
+        intro1.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        intro1.SetActive(false);
+        intro2.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        intro2.SetActive(false);
+        intro3.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        intro3.SetActive(false);
     }
 
 
@@ -59,7 +66,7 @@ public class PlayerScore : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         gift1.SetActive(true);
-        Debug.Log("gift1 work");
+       // Debug.Log("gift1 work");
         yield return new WaitForSeconds(2.5f);
         //  Egg.eggs = 0;
         gift1.SetActive(false);
@@ -67,9 +74,9 @@ public class PlayerScore : MonoBehaviour
 
     IEnumerator Gift2()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         gift2.SetActive(true);
-        Debug.Log("gift2 work");
+       // Debug.Log("gift2 work");
         portal.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         gift2.SetActive(false);
@@ -77,9 +84,9 @@ public class PlayerScore : MonoBehaviour
 
     IEnumerator Gift3()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         gift3.SetActive(true);
-        Debug.Log("gift3 work");
+      //  Debug.Log("gift3 work");
         portal.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         gift3.SetActive(false);

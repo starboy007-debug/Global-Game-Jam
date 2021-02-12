@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,61 +15,74 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-  //  public ParticleSystem snow;
+    private Vector3 lastPosition = new Vector3(257.2f, 0.912f, 223.6f);
 
-//    public AudioSource walk;
-  //  public AudioSource land;
+    public AudioSource walk;
+    public AudioSource land;
 
-    public int maxHealth = 100;
+    public int maxHealth = 20;
     public int currentHealth;
     public HealthBar healthBar;
     public GameObject die;
 
     Vector3 velocity;
     bool isGrounded;
-    Animator anim;
+    //  Animator anim;
     void Start()
     {
-        anim = GetComponent<Animator>();
+        //   anim = GetComponent<Animator>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
     {
+        if (lastPosition != gameObject.transform.position)
+        {
+         //   walk.Play();
+        }
+
+        lastPosition = gameObject.transform.position;
         
+
         Attacking();
-    //    snow.Play();
+
+        Walk();
+
+        Jump();
+    }
+
+    void Jump()
+    {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
 
-    //    if (x == 1 || x == -1 || z == 1 || z == -1)
-    //    {
-           // walk.Play();
-     //   }
-        
-
-        Vector3 move = transform.right * x + transform.forward * z;
-        //walk.Play();
-        controller.Move(move * speed * Time.deltaTime);
-     
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            
-          //  land.Play();
-           // TakeDamage(20);
+
+            land.Play();
+            // TakeDamage(20);
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+    void Walk()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward * z;
+        
+        //walk.Play();
+        controller.Move(move * speed * Time.deltaTime);
+
     }
 
     void Attacking()
@@ -76,17 +90,18 @@ public class Player : MonoBehaviour
         if(Chase.isAttacking)
         {
             StartCoroutine(Damage());
-          //  TakeDamage(20);
+            TakeDamage(20);
             
         }
     }
 
     IEnumerator Damage()
     {
+        Chase.isAttacking = false;
         yield return new WaitForSeconds(1f);
         TakeDamage(2);
-        anim.enabled = true;
-        Chase.isAttacking = false;
+      //  anim.enabled = true;
+        
         yield return new WaitForSeconds(1f);
     }
 
@@ -101,7 +116,6 @@ public class Player : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
-
     void Die()
     {
         die.SetActive(true);
@@ -114,5 +128,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Level01");
     }
+
 
 }

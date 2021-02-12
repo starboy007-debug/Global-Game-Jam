@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chase : MonoBehaviour
 {
-    //chase
+    
     public Transform player;
     static Animator anim;
     public static bool isAttacking = false;
@@ -16,8 +16,14 @@ public class Chase : MonoBehaviour
 
     void Update()
     {
+        if (Weapon.isdie == true)
+        {
+            anim.SetTrigger("IsDie");
+        }
+
         Vector3 direction = player.position - this.transform.position;
         float angle = Vector3.Angle(direction, this.transform.forward);
+
         if (Vector3.Distance(player.position, this.transform.position) < 15 && angle < 40)
         {
             direction.y = 0;
@@ -35,10 +41,10 @@ public class Chase : MonoBehaviour
             {
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isAttacking", true);
-                isAttacking = true;
-                                
+                isAttacking = true;                                
             }
         }
+
         else
         {
             anim.SetBool("isIdle", true);
@@ -47,4 +53,6 @@ public class Chase : MonoBehaviour
             isAttacking = false;
         }
     }
+
+
 }

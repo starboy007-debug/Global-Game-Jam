@@ -18,7 +18,7 @@ public class cube : MonoBehaviour
     IEnumerator Key()
     {
         key.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         key.SetActive(false);
     }
 }
